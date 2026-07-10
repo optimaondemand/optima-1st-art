@@ -108,24 +108,13 @@ body {
 }
 
 /* ── Video Placeholder ── */
-.video-container .art-frame-inner {
   padding-bottom: 56.25%;
   height: 0;
   background: #1a1a2e;
 }
-.video-container iframe {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 100%; border: 0;
 }
-.video-placeholder {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 10px;
-}
-.video-placeholder-icon { font-size: 48px; opacity: 0.5; }
-.video-placeholder-text { font-size: 15px; color: #9A8E82; font-weight: 700; }
-.video-placeholder-id { font-size: 11px; color: #C0B8B0; font-family: monospace; }
 
 /* ── Assignment Image ── */
 .assignment-image img {
@@ -199,15 +188,6 @@ body {
   <div class="art-divider"><span class="bounce-emoji">🖍️</span> <span class="bounce-emoji">✂️</span> <span class="bounce-emoji">🎨</span> <span class="bounce-emoji">✏️</span> <span class="bounce-emoji">📐</span> <span class="bounce-emoji">🖌️</span></div>
 
   <!-- Video Placeholder -->
-  <div class="art-frame video-container">
-    <div class="art-frame-inner" data-video-id="art-1st-q1-w1-assignment">
-      <div class="video-placeholder">
-        <div class="video-placeholder-icon"><span class="bounce-emoji">🎬</span></div>
-        <div class="video-placeholder-text">Assignment video coming soon</div>
-        <div class="video-placeholder-id"><!-- slot: art-1st-q1-w1-assignment --></div>
-      </div>
-    </div>
-  </div>
 
   <!-- Assignment Image -->
   <div class="art-frame">
@@ -370,10 +350,3 @@ body {
 </div>
 
 <!-- ═══════════ VIDEO MANIFEST LOADER ═══════════ -->
-<script>
-(function() {
-  // Update this URL to point to your video manifest JSON on GitHub
-  var MANIFEST_URL = 'https://raw.githubusercontent.com/optimaondemand/optima-assets/main/video-manifest.json';
-
-  function loadVideos() {
-    fetc
