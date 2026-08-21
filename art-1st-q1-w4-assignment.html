@@ -269,6 +269,10 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
   </div>
   <div class="art-divider"><span class="bounce-emoji">🐑</span><span class="bounce-emoji">🎨</span><span class="bounce-emoji">🖌️</span></div>
 
+    <div style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border:2px solid #90CAF9;border-radius:12px;padding:14px 18px;margin-bottom:20px;text-align:center;font-size:15px;font-weight:700;color:#1565C0;line-height:1.5">
+      📝 <strong>Note for families:</strong> Please submit your work from the assignment image above. The interactive below is just for extra practice and fun &mdash; no need to submit it!
+    </div>
+
   <!-- MINIGAME: Line Fence Defender -->
   <div style="background:#fff;border:2px solid #E8DDD2;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(27,67,50,0.04);margin-bottom:22px;">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:2px solid #FFD54F;background:linear-gradient(135deg,#FFF8E1,#FFECB3);">
@@ -282,13 +286,13 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
     <div style="padding:20px 22px;">
       <canvas id="fenceGame" width="860" height="380" style="width:100%;border-radius:12px;background:#E8F5E9;display:block;border:2px dashed #E8DDD2;"></canvas>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center;justify-content:center;">
-        <button onclick="fenceClickLine('straight')" style="background:linear-gradient(135deg,#1565C0,#1E88E5);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(30,136,229,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">STRAIGHT</button>
-        <button onclick="fenceClickLine('wavy')" style="background:linear-gradient(135deg,#00838F,#00ACC1);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(0,172,193,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">WAVY</button>
-        <button onclick="fenceClickLine('zigzag')" style="background:linear-gradient(135deg,#6A1B9A,#8E24AA);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(142,36,170,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">ZIGZAG</button>
-        <button onclick="fenceClickLine('curved')" style="background:linear-gradient(135deg,#E64A19,#FF7043);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(230,74,25,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">CURVED</button>
+        <button type="button" onclick="fenceClickLine('straight')" style="background:linear-gradient(135deg,#1565C0,#1E88E5);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(30,136,229,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">STRAIGHT</button>
+        <button type="button" onclick="fenceClickLine('wavy')" style="background:linear-gradient(135deg,#00838F,#00ACC1);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(0,172,193,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">WAVY</button>
+        <button type="button" onclick="fenceClickLine('zigzag')" style="background:linear-gradient(135deg,#6A1B9A,#8E24AA);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(142,36,170,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">ZIGZAG</button>
+        <button type="button" onclick="fenceClickLine('curved')" style="background:linear-gradient(135deg,#E64A19,#FF7043);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(230,74,25,0.3);transition:transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">CURVED</button>
       </div>
       <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;align-items:center;">
-        <button onclick="startFenceGame()" id="fenceStartBtn" style="background:linear-gradient(135deg,#F57F17,#F9A825);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;">&#x25B6; Start Game</button>
+        <button type="button" onclick="startFenceGame()" id="fenceStartBtn" style="background:linear-gradient(135deg,#F57F17,#F9A825);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;">&#x25B6; Start Game</button>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Score: <span id="fenceScore" style="color:#E64A19;font-weight:900;">0</span></span>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Lives: <span id="fenceLives">&#x2764;&#xFE0F;&#x2764;&#xFE0F;&#x2764;&#xFE0F;</span></span>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Fence: <span id="fenceProgress" style="color:#2E7D32;font-weight:900;">0/6</span></span>

@@ -269,6 +269,10 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
   </div>
   <div class="art-divider"><span class="bounce-emoji">🍎</span><span class="bounce-emoji">🎨</span><span class="bounce-emoji">🖌️</span></div>
 
+    <div style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border:2px solid #90CAF9;border-radius:12px;padding:14px 18px;margin-bottom:20px;text-align:center;font-size:15px;font-weight:700;color:#1565C0;line-height:1.5">
+      📝 <strong>Note for families:</strong> Please submit your work from the assignment image above. The interactive below is just for extra practice and fun &mdash; no need to submit it!
+    </div>
+
   <!-- ═══════════ MINIGAME: Art Tool Lab Mix-Up! ═══════════ -->
   <div style="background:#fff;border:2px solid #CE93D8;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(27,67,50,0.04);margin-bottom:22px;">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:2px solid #CE93D8;background:linear-gradient(135deg,#F3E5F5,#E1BEE7);">
@@ -282,7 +286,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
     <div style="padding:20px 22px;">
       <canvas id="labGame" width="860" height="380" style="width:100%;border-radius:12px;background:#F9F5FF;display:block;border:2px dashed #CE93D8;"></canvas>
       <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;align-items:center;">
-        <button onclick="startLabGame()" id="labStartBtn" style="background:linear-gradient(135deg,#6A1B9A,#8E24AA);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;">▶ Start Game</button>
+        <button type="button" onclick="startLabGame()" id="labStartBtn" style="background:linear-gradient(135deg,#6A1B9A,#8E24AA);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;">▶ Start Game</button>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Score: <span id="labScore" style="color:#E64A19;">0</span></span>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Lives: <span id="labLives">❤️❤️❤️</span></span>
         <span style="font-size:15px;font-weight:700;color:#1B4332;">Round: <span id="labRound" style="color:#6A1B9A;">0 / 5</span></span>
