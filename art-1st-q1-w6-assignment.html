@@ -319,74 +319,97 @@ var TOOLS = [
 
 // Mark drawing functions
 function drawThickLine(cx, cy) {
+  // Marker: smooth, bold, even ink — very clean edges, slight sheen
   ctx.strokeStyle = '#E53935';
-  ctx.lineWidth = 14;
+  ctx.lineWidth = 16;
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(cx - 90, cy);
   ctx.lineTo(cx + 90, cy);
   ctx.stroke();
-  ctx.strokeStyle = '#EF5350';
-  ctx.lineWidth = 6;
+  // Ink sheen highlight (markers are glossy)
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.moveTo(cx - 88, cy - 4);
-  ctx.lineTo(cx + 88, cy - 4);
+  ctx.moveTo(cx - 85, cy - 4);
+  ctx.lineTo(cx + 85, cy - 4);
   ctx.stroke();
+  // Label
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.font='bold 11px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('smooth & bold ink',cx,cy+30);
 }
 function drawBrightFill(cx, cy) {
-  // Crayon fill — bright colored rectangle with waxy texture
+  // Crayon fill — heavy waxy texture, uneven streaks, not smooth
   ctx.fillStyle = '#FF8F00';
   ctx.fillRect(cx - 80, cy - 35, 160, 70);
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  for (var i = 0; i < 8; i++) {
-    ctx.fillRect(cx - 78 + i * 20, cy - 34, 3, 68);
-  }
+  // Heavy waxy streaks (crayons leave visible lines) — fixed positions to avoid flicker
+  var streaks=[0,6,11,18,24,30,38,43,50,57,63,70,78,85,92,100,107,114,120,128,135,140,146,150];
+  streaks.forEach(function(off,i){
+    var sx = cx - 78 + off;
+    ctx.strokeStyle = 'rgba(255,255,255,' + (0.15 + (i%5)*0.04) + ')';
+    ctx.lineWidth = 2 + (i%3);
+    ctx.beginPath();
+    ctx.moveTo(sx, cy - 34);
+    ctx.lineTo(sx + (i%3)-1, cy + 34);
+    ctx.stroke();
+  });
+  // Uneven edges (crayons don't fill perfectly)
   ctx.strokeStyle = '#E65100';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 3;
+  ctx.setLineDash([4,3]);
   ctx.strokeRect(cx - 80, cy - 35, 160, 70);
+  ctx.setLineDash([]);
+  // Label
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.font='bold 11px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('waxy & streaky',cx,cy+55);
 }
 function drawLightMark(cx, cy) {
-  // Pencil — light gray precise line
-  ctx.strokeStyle = '#90A4AE';
+  // Pencil — light gray precise line, thin and neat
+  ctx.strokeStyle = '#78909C';
   ctx.lineWidth = 1.5;
   ctx.lineCap = 'butt';
   ctx.beginPath();
   ctx.moveTo(cx - 90, cy - 10);
   ctx.lineTo(cx + 90, cy - 10);
   ctx.stroke();
-  ctx.strokeStyle = '#B0BEC5';
+  ctx.strokeStyle = '#90A4AE';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(cx - 85, cy + 5);
   ctx.lineTo(cx + 85, cy + 5);
   ctx.stroke();
-  ctx.strokeStyle = '#CFD8DC';
+  ctx.strokeStyle = '#B0BEC5';
   ctx.beginPath();
   ctx.moveTo(cx - 70, cy + 18);
   ctx.lineTo(cx + 70, cy + 18);
   ctx.stroke();
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.font='bold 11px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('thin & light',cx,cy+38);
 }
 function drawWavyStroke(cx, cy) {
-  // Crayon wavy
-  ctx.strokeStyle = '#7B1FA2';
-  ctx.lineWidth = 10;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.beginPath();
-  ctx.moveTo(cx - 90, cy);
-  for (var x = -90; x <= 90; x += 10) {
-    ctx.lineTo(cx + x, cy + Math.sin(x * 0.12) * 18);
+  // Crayon wavy — thick, textured, with visible wax gaps
+  ctx.lineJoin = 'round';ctx.lineCap = 'round';
+  // Multiple overlapping passes to look waxy
+  for(var pass=0;pass<3;pass++){
+    ctx.strokeStyle = pass===0?'#7B1FA2':pass===1?'rgba(123,31,162,0.5)':'rgba(186,104,200,0.4)';
+    ctx.lineWidth = pass===0?12:pass===1?8:5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 90, cy + pass*2);
+    for (var x = -90; x <= 90; x += 8) {
+      var jitter = pass>0 ? Math.sin(x*0.7+pass*3)*1.5 : 0;
+      ctx.lineTo(cx + x, cy + pass*2 + Math.sin(x * 0.12) * 18 + jitter);
+    }
+    ctx.stroke();
   }
-  ctx.stroke();
-  // Waxy texture overlay
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(cx - 88, cy - 2);
-  for (var x2 = -88; x2 <= 88; x2 += 10) {
-    ctx.lineTo(cx + x2, cy - 2 + Math.sin(x2 * 0.12) * 18);
-  }
-  ctx.stroke();
+  // Waxy white gaps
+  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+  ctx.lineWidth = 2;ctx.setLineDash([3,6]);
+  ctx.beginPath();ctx.moveTo(cx-88,cy);
+  for(var x3=-88;x3<=88;x3+=8){ctx.lineTo(cx+x3,cy+Math.sin(x3*0.12)*18);}
+  ctx.stroke();ctx.setLineDash([]);
+  // Label
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.font='bold 11px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('waxy & textured',cx,cy+40);
 }
 function drawThinLine(cx, cy) {
   // Pencil thin dark line
@@ -404,6 +427,8 @@ function drawThinLine(cx, cy) {
   ctx.moveTo(cx - 89, cy - 1);
   ctx.lineTo(cx + 89, cy - 1);
   ctx.stroke();
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.font='bold 11px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('thin & precise',cx,cy+28);
 }
 
 // State

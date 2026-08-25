@@ -326,57 +326,94 @@ var BUTTONS=[
   {label:'SOFT',x:670,y:310,w:160,h:48,color:'#C2185B'}
 ];
 
-function drawTexture(type,x,y,w,h){
-  ctx.save();
-  ctx.beginPath();
-  ctx.roundRect(x,y,w,h,12);
-  ctx.clip();
+// Pre-render textures to offscreen canvases so they don't flicker
+var texCanvases={};
+function buildTextureCanvas(type,w,h){
+  var c=document.createElement('canvas');c.width=w;c.height=h;
+  var tc=c.getContext('2d');
   if(type==='ROUGH'){
-    ctx.fillStyle='#8D6E63';
-    ctx.fillRect(x,y,w,h);
-    ctx.strokeStyle='#5D4037';
-    ctx.lineWidth=1.5;
-    for(var i=0;i<80;i++){
-      var rx=x+Math.random()*w;
-      var ry=y+Math.random()*h;
-      var len=4+Math.random()*12;
-      var ang=Math.random()*Math.PI;
-      ctx.beginPath();
-      ctx.moveTo(rx,ry);
-      ctx.lineTo(rx+Math.cos(ang)*len,ry+Math.sin(ang)*len*0.4);
-      ctx.stroke();
+    // Tree bark look
+    tc.fillStyle='#8D6E63';tc.fillRect(0,0,w,h);
+    // Horizontal bark lines
+    tc.strokeStyle='#5D4037';tc.lineWidth=2;
+    for(var i=0;i<12;i++){
+      var ly=10+i*(h/12)+Math.random()*8;
+      tc.beginPath();tc.moveTo(0,ly);
+      for(var px=0;px<w;px+=20){tc.lineTo(px+10,ly+Math.random()*6-3);}
+      tc.stroke();
     }
+    // Scratchy hash marks
+    tc.strokeStyle='#4E342E';tc.lineWidth=1;
+    for(var j=0;j<60;j++){
+      var rx=Math.random()*w,ry=Math.random()*h;
+      var len=3+Math.random()*8;
+      tc.beginPath();tc.moveTo(rx,ry);tc.lineTo(rx+len,ry+Math.random()*4-2);tc.stroke();
+    }
+    // Label
+    tc.fillStyle='rgba(93,64,55,0.7)';tc.font='bold 16px Nunito,sans-serif';tc.textAlign='center';
+    tc.fillText('🌳 Like tree bark!',w/2,h-14);
   } else if(type==='SMOOTH'){
-    var grad=ctx.createLinearGradient(x,y,x+w,y+h);
-    grad.addColorStop(0,'#B3E5FC');
-    grad.addColorStop(0.5,'#81D4FA');
-    grad.addColorStop(1,'#4FC3F7');
-    ctx.fillStyle=grad;
-    ctx.fillRect(x,y,w,h);
+    // Shiny glass/water
+    var grad=tc.createLinearGradient(0,0,w,h);
+    grad.addColorStop(0,'#B3E5FC');grad.addColorStop(0.4,'#81D4FA');grad.addColorStop(0.7,'#4FC3F7');grad.addColorStop(1,'#29B6F6');
+    tc.fillStyle=grad;tc.fillRect(0,0,w,h);
+    // Shine streaks
+    tc.strokeStyle='rgba(255,255,255,0.5)';tc.lineWidth=8;tc.lineCap='round';
+    tc.beginPath();tc.moveTo(w*0.2,h*0.15);tc.lineTo(w*0.5,h*0.35);tc.stroke();
+    tc.lineWidth=4;
+    tc.beginPath();tc.moveTo(w*0.55,h*0.2);tc.lineTo(w*0.7,h*0.3);tc.stroke();
+    // Label
+    tc.fillStyle='rgba(1,87,155,0.6)';tc.font='bold 16px Nunito,sans-serif';tc.textAlign='center';
+    tc.fillText('✨ Like glass!',w/2,h-14);
   } else if(type==='BUMPY'){
-    ctx.fillStyle='#A5D6A7';
-    ctx.fillRect(x,y,w,h);
-    ctx.fillStyle='#66BB6A';
-    var cr=12;
-    for(var bx=x+cr;bx<x+w;bx+=cr*2.1){
-      for(var by=y+cr;by<y+h;by+=cr*2.1){
-        ctx.beginPath();
-        ctx.arc(bx,by,cr*0.9,0,Math.PI*2);
-        ctx.fill();
+    // Cobblestones with 3D shading
+    tc.fillStyle='#BCAAA4';tc.fillRect(0,0,w,h);
+    var cr=16;
+    for(var bx=cr;bx<w;bx+=cr*2.2){
+      for(var by=cr;by<h-20;by+=cr*2.2){
+        var g=tc.createRadialGradient(bx-3,by-3,2,bx,by,cr);
+        g.addColorStop(0,'#A1887F');g.addColorStop(0.6,'#8D6E63');g.addColorStop(1,'#6D4C41');
+        tc.fillStyle=g;tc.beginPath();tc.arc(bx,by,cr*0.85,0,Math.PI*2);tc.fill();
+        tc.strokeStyle='#4E342E';tc.lineWidth=1;tc.stroke();
+        // highlight dot
+        tc.fillStyle='rgba(255,255,255,0.3)';tc.beginPath();tc.arc(bx-4,by-4,4,0,Math.PI*2);tc.fill();
       }
     }
+    tc.fillStyle='rgba(78,52,46,0.6)';tc.font='bold 16px Nunito,sans-serif';tc.textAlign='center';
+    tc.fillText('🪨 Like cobblestones!',w/2,h-14);
   } else if(type==='SOFT'){
-    ctx.fillStyle='#FCE4EC';
-    ctx.fillRect(x,y,w,h);
-    ctx.fillStyle='rgba(240,98,146,0.18)';
-    for(var si=0;si<18;si++){
-      var sx=x+Math.random()*w;
-      var sy=y+Math.random()*h;
-      ctx.beginPath();
-      ctx.arc(sx,sy,20+Math.random()*25,0,Math.PI*2);
-      ctx.fill();
+    // Fluffy cotton/cloud look
+    tc.fillStyle='#FCE4EC';tc.fillRect(0,0,w,h);
+    // Soft puffy circles in layers
+    var puffs=[];
+    for(var si=0;si<25;si++){puffs.push({x:Math.random()*w,y:Math.random()*(h-30),r:25+Math.random()*30});}
+    puffs.forEach(function(p){
+      var sg=tc.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+      sg.addColorStop(0,'rgba(255,255,255,0.9)');sg.addColorStop(0.5,'rgba(248,187,208,0.4)');sg.addColorStop(1,'rgba(248,187,208,0)');
+      tc.fillStyle=sg;tc.beginPath();tc.arc(p.x,p.y,p.r,0,Math.PI*2);tc.fill();
+    });
+    // Extra white puffs on top
+    for(var wi=0;wi<10;wi++){
+      var wx=Math.random()*w,wy=Math.random()*(h-40),wr=15+Math.random()*20;
+      tc.fillStyle='rgba(255,255,255,0.6)';tc.beginPath();tc.arc(wx,wy,wr,0,Math.PI*2);tc.fill();
     }
+    tc.fillStyle='rgba(173,20,87,0.5)';tc.font='bold 16px Nunito,sans-serif';tc.textAlign='center';
+    tc.fillText('☁️ Like a fluffy cloud!',w/2,h-14);
   }
+  return c;
+}
+
+function ensureTexCanvas(type,w,h){
+  var key=type+'_'+w+'_'+h;
+  if(!texCanvases[key]) texCanvases[key]=buildTextureCanvas(type,w,h);
+  return texCanvases[key];
+}
+
+function drawTexture(type,x,y,w,h){
+  ctx.save();
+  ctx.beginPath();ctx.roundRect(x,y,w,h,12);ctx.clip();
+  var tc=ensureTexCanvas(type,w,h);
+  ctx.drawImage(tc,x,y);
   ctx.restore();
 }
 
@@ -558,7 +595,7 @@ canvas.addEventListener('click',function(e){
 
 window.startTextureGame=function(){
   score=0;lives=3;round=0;running=true;gameOver=false;
-  particles=[];feedback='';feedbackTimer=0;
+  particles=[];feedback='';feedbackTimer=0;texCanvases={};
   document.getElementById('textureScore').textContent='0';
   document.getElementById('textureLives').textContent='❤️❤️❤️';
   document.getElementById('textureRound').textContent='0';
