@@ -54,8 +54,6 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
 .theme-purple .card-head-icon{background:linear-gradient(135deg,#6A1B9A,#8E24AA);}
 .theme-pink .card-head{background:linear-gradient(135deg,#FCE4EC,#F8BBD0);border-color:#F48FB1;}
 .theme-pink .card-head-icon{background:linear-gradient(135deg,#C2185B,#E91E63);}
-.theme-teal .card-head{background:linear-gradient(135deg,#E0F7FA,#B2EBF2);border-color:#80DEEA;}
-.theme-teal .card-head-icon{background:linear-gradient(135deg,#00838F,#00ACC1);}
 .eq-box{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:2px solid #A5D6A7;border-radius:16px;padding:18px 20px;display:flex;align-items:flex-start;gap:12px;}
 .eq-box .eq-icon{font-size:30px;flex-shrink:0;line-height:1;}
 .eq-box .eq-label{font-size:11px;color:#2D6A4F;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:4px;}
@@ -102,11 +100,9 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
 .footer a{color:#55C8E8;text-decoration:none;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
 .paint-border{position:relative;z-index:1;height:8px;background:linear-gradient(90deg,#FF7043 0%,#FF7043 12.5%,#FFB74D 12.5%,#FFB74D 25%,#FFF176 25%,#FFF176 37.5%,#81C784 37.5%,#81C784 50%,#4DD0E1 50%,#4DD0E1 62.5%,#7986CB 62.5%,#7986CB 75%,#CE93D8 75%,#CE93D8 87.5%,#F48FB1 87.5%,#F48FB1 100%);}
-.video-wrap{position:relative;width:100%;max-width:640px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.12);}
-.video-wrap video{display:block;width:100%;height:auto;border-radius:14px;}
+@media(max-width:680px){.two-col{grid-template-columns:1fr;}.info-strip{flex-direction:column;}.info-item{border-right:none;border-bottom:1px solid #E8DDD2;}.info-item:last-child{border-bottom:none;}}
 .art-frame{position:relative;padding:4px;border-radius:18px;margin-bottom:24px;background:linear-gradient(135deg,#FF7043,#FFB74D,#FFF176,#81C784,#4DD0E1,#7986CB,#CE93D8,#F48FB1);box-shadow:0 2px 12px rgba(27,67,50,0.08);}
 .art-frame-inner{position:relative;z-index:1;border-radius:12px;overflow:hidden;}
-@media(max-width:680px){.two-col{grid-template-columns:1fr;}.info-strip{flex-direction:column;}.info-item{border-right:none;border-bottom:1px solid #E8DDD2;}.info-item:last-child{border-bottom:none;}}
 </style>
 </head>
 <body>
@@ -164,7 +160,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
     var LABEL_PAUSE  = "⏸️ Pause";
     var LABEL_RESUME = "▶️ Resume";
     var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
-    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe, video";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
 
     var queue = [];
     var idx = 0;
@@ -212,7 +208,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
         items.forEach(function (item) {
             var clean = item.text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{2B55}\u{25A0}-\u{25FF}\u{2702}-\u{27B0}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}\u{E0020}-\u{E007F}]/gu, "").replace(/\s+/g, " ").trim();
             if (!clean) return;
-            var sentences = clean.match(/[^.!?]+[.!?]+["”’‘)\]]*\s*|[^.!?]+$/g) || [clean];
+            var sentences = clean.match(/[^.!?]+[.!?]+["”’')\]]*\s*|[^.!?]+$/g) || [clean];
             sentences.forEach(function (s) {
                 s = s.trim();
                 if (s) q.push({ el: item.el, text: s });
@@ -325,27 +321,26 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
 </div>
 <div class="info-strip">
   <div class="info-item">
-    <div class="info-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);"><span class="bounce-emoji">📅</span></div>
+    <div class="info-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);"><span class="bounce-emoji">🎭</span></div>
     <div class="info-label">Theme</div>
     <div class="info-value">Follow the Path</div>
   </div>
   <div class="info-item">
-    <div class="info-icon" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);"><span class="bounce-emoji">🎨</span></div>
+    <div class="info-icon" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);"><span class="bounce-emoji">🌟</span></div>
     <div class="info-label">Art Focus</div>
     <div class="info-value">Texture</div>
-    <div class="info-detail">Exploring torn paper and texture</div>
+    <div class="info-detail">Exploring texture through torn paper</div>
   </div>
   <div class="info-item">
     <div class="info-icon" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);"><span class="bounce-emoji">📋</span></div>
     <div class="info-label">Standards</div>
     <div class="standards-row">
-      <span class="std-tag">VA.1.S.2.1<span class="std-tooltip"><span class="std-code">VA.1.S.2.1</span>Practice correct use of tools with various art media, techniques, and processes.</span></span>
-      <span class="std-tag">VA.1.S.2.2<span class="std-tooltip"><span class="std-code">VA.1.S.2.2</span>Describe the steps used in art production.</span></span>
+      <span class="std-tag">VA.1.S.2.1<span class="std-tooltip"><span class="std-code">VA.1.S.2.1</span>Practice correct use of tools with various art media, techniques, and processes.</span></span> <span class="std-tag">VA.1.S.2.2<span class="std-tooltip"><span class="std-code">VA.1.S.2.2</span>Describe the steps used in art production.</span></span>
     </div>
   </div>
 </div>
 <div class="content">
-  <div class="art-divider"><span class="bounce-emoji">🎨</span><span class="bounce-emoji">📄</span><span class="bounce-emoji">✨</span><span class="bounce-emoji">✂️</span><span class="bounce-emoji">🖌️</span></div>
+  <div class="art-divider"><span class="bounce-emoji">🌈</span> <span class="bounce-emoji">🎨</span> <span class="bounce-emoji">✨</span> <span class="bounce-emoji">🧭</span> <span class="bounce-emoji">🌟</span></div>
 
   <div class="two-col">
     <div class="card theme-forest">
@@ -358,7 +353,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
           <span class="eq-icon bounce-emoji">🤔</span>
           <div>
             <div class="eq-label">Think About This&hellip;</div>
-            <div class="eq-question">&ldquo;How can tearing paper instead of cutting it change the way our artwork looks and feels?&rdquo;</div>
+            <div class="eq-question">"How can I use different art materials to express what makes me unique and special?"</div>
           </div>
         </div>
       </div>
@@ -375,7 +370,6 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       </div>
     </div>
   </div>
-
   <div class="card theme-coral">
     <div class="card-head">
       <div class="card-head-icon"><span class="bounce-emoji">📚</span></div>
@@ -385,47 +379,45 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       <div class="vocab-grid">
         <div class="vocab-flip" onclick="this.classList.toggle('flipped')">
           <div class="vocab-inner">
-            <div class="vocab-front"><div class="vocab-emoji">🧱</div><div class="vocab-word">TEXTURE</div><div class="vocab-tap">Tap to reveal definition</div></div>
-            <div class="vocab-back"><div class="vocab-def">The way something feels when you touch it, or the way it looks like it would feel &mdash; like rough, smooth, bumpy, or fuzzy.</div></div>
+            <div class="vocab-front"><div class="vocab-emoji">🧶</div><div class="vocab-word">TEXTURE</div><div class="vocab-tap">Tap to reveal definition</div></div>
+            <div class="vocab-back"><div class="vocab-def">The way something looks or feels when you touch it, like rough, smooth, bumpy, or soft.</div></div>
           </div>
         </div>
         <div class="vocab-flip" onclick="this.classList.toggle('flipped')">
           <div class="vocab-inner">
             <div class="vocab-front"><div class="vocab-emoji">📄</div><div class="vocab-word">TORN</div><div class="vocab-tap">Tap to reveal definition</div></div>
-            <div class="vocab-back"><div class="vocab-def">Ripped or pulled apart by hand instead of cut with scissors, creating soft, uneven edges.</div></div>
+            <div class="vocab-back"><div class="vocab-def">Paper that has been ripped by hand instead of cut with scissors, creating rough, uneven edges.</div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
+  <div class="card theme-pink">
+    <div class="card-head">
+      <div class="card-head-icon"><span class="bounce-emoji">🎬</span></div>
+      <div><div class="card-head-label">Story Spotlight</div><div class="card-head-title">When Glitter Met Glue</div></div>
+    </div>
+    <div class="card-body">
+      <p>Watch the story <strong><em>When Glitter Met Glue</em></strong> by Karen Kilpatrick.</p>
+      <div class="art-frame" style="margin-top:12px;">
+        <div class="art-frame-inner">
+          <video controls preload="metadata" style="width:100%;display:block;border-radius:8px;" aria-label="Story Spotlight: When Glitter Met Glue by Karen Kilpatrick">
+            <source src="1st_Art_Module_10_Story_Spotlight.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card theme-sun">
     <div class="card-head">
       <div class="card-head-icon"><span class="bounce-emoji">👀</span></div>
       <div><div class="card-head-label">Before You Begin</div><div class="card-head-title">Notice &amp; Wonder</div></div>
     </div>
     <div class="card-body">
-      <p><strong>What do you notice</strong> about how the torn edge might feel different from the cut edge of a piece of paper?</p>
-      <p><strong>What do you wonder</strong> about how using torn paper instead of cutting it might change the way your final artwork looks?</p>
+      <p>What do you notice about how the torn edge might feel different from the cut edge of a piece of paper? What do you wonder about how using torn paper instead of cutting it might change the way your final artwork looks?</p>
     </div>
   </div>
-
-  <div class="card theme-teal">
-    <div class="card-head">
-      <div class="card-head-icon"><span class="bounce-emoji">📖</span></div>
-      <div><div class="card-head-label">Story Spotlight</div><div class="card-head-title">When Glitter Met Glue</div></div>
-    </div>
-    <div class="card-body">
-      <p style="font-size:15px;color:#5A4D3E;margin-bottom:14px;">Enjoy this read-aloud of <em>When Glitter Met Glue</em> by Karen Kilpatrick &mdash; a fun story that celebrates how art materials work together!</p>
-      <div class="video-wrap">
-        <video controls preload="metadata">
-          <source src="Art Module 10 Story Spotlight When Glitter Met Glue by Karen Kilpatrick.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
-
   <div class="card theme-purple">
     <div class="card-head">
       <div class="card-head-icon"><span class="bounce-emoji">💭</span></div>
@@ -435,11 +427,10 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       <p>I made art using torn paper to explore texture, and one thing I noticed about the texture of my torn paper piece is&hellip;</p>
     </div>
   </div>
-
-  <div class="art-divider"><span class="bounce-emoji">🎨</span><span class="bounce-emoji">📄</span><span class="bounce-emoji">✨</span></div>
+  <div class="art-divider"><span class="bounce-emoji">🌈</span> <span class="bounce-emoji">🎨</span> <span class="bounce-emoji">🖌️</span></div>
   <div class="callout callout-tip">
     <span class="callout-icon bounce-emoji">📢</span>
-    <p><strong>Live Art Class:</strong> All On Demand students can join Live Art class from 11:10&ndash;11:30 on Wednesdays and Thursdays to earn participation credit!</p>
+    <p><strong>Live Art Class:</strong> All On Demand students can join Live Art class from 11:10–11:30 on Wednesdays and Thursdays to earn participation credit.</p>
   </div>
 </div>
 <div class="paint-border"></div>
